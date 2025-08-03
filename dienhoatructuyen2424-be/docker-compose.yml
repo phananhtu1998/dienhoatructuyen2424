@@ -1,0 +1,198 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:9.2.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_DATABASE=parkingdevgo
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=root1234
+    networks:
+      - go_network  
+    command: --log-bin-trust-function-creators=1
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.2
+    container_name: phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root1234
+    depends_on:
+      - mysql
+    networks:
+      - go_network
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    networks:
+      - go_network
+
+  redisinsight:
+    image: redislabs/redisinsight:1.14.0
+    container_name: redis_insight
+    restart: always
+    ports:
+      - "8001:8001"
+    environment:
+      - REDIS_INSIGHT_DEFAULT_MODE=standalone
+    depends_on:
+      - redis
+    networks:
+      - go_network
+  grafana:
+    image: grafana/grafana
+    container_name: pre-event-grafana
+    hostname: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SING_UP=false
+      - GF_SERVER_DOMAIN=localhost
+      #enable logger
+      - GF_LOG_MODE=console file
+      - GF_LOG_FILTERS=alerting.notifier.slack:debug alermanager:debug ngalert:debug
+
+    volumes:
+      - ./environment/grafana-storage:/var/lib/grafana
+    ports:
+      - "3002:3000"
+    networks:
+      - go_network
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: pre-event-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./environment/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data/prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+      - "--web.enable-lifecycle"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    ports:
+      - "8092:9090"
+    networks:
+      - go_network
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: pre-event-node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - --path.procfs=/host/proc
+      - --path.rootfs=/rootfs
+      - --path.sysfs=/host/sys
+      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+    ports:
+      - "8100:9100"
+    networks:
+      - go_network
+  # kafka:
+  #   image: confluentinc/cp-kafka:7.9.0
+  #   hostname: kafka
+  #   container_name: kafka
+  #   ports:
+  #     - "9092:9092"
+  #     - "9093:9093"
+  #   environment:
+  #     KAFKA_KRAFT_MODE: "true"
+  #     KAFKA_PROCESS_ROLES: controller,broker
+  #     KAFKA_NODE_ID: 1
+  #     KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+  #     KAFKA_LISTENERS: PLAINTEXT://kafka:9092,CONTROLLER://kafka:9093
+  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+  #     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+  #     KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+  #     KAFKA_LOG_DIRS: /var/lib/kafka/data 
+  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  #     KAFKA_LOG_RETENTION_HOURS: 168
+  #     KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+  #     CLUSTER_ID: "Mk3OEYBSD34fcwNTJENDM2Qk"
+  #   volumes:
+  #     - ../data:/var/lib/kafka/data
+  #   networks:
+  #     - go_network
+
+  # kafka-ui:
+  #   image: provectuslabs/kafka-ui:v0.7.2
+  #   container_name: kafka-ui
+  #   ports:
+  #     - "8088:8080"
+  #   environment:
+  #     KAFKA_CLUSTERS_0_NAME: local
+  #     KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+  #   depends_on:
+  #     - kafka
+  #   networks:
+  #     - go_network
+
+  # crm.gobackend.com:
+  #   container_name: go_backend_crm
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   depends_on:
+  #     - mysql
+  #     - redis
+  #   ports:
+  #     - "8002:8002"
+  #   networks:
+  #     - go_network
+  #   volumes:
+  #     - ./sql/schema:/app/sql/schema
+  #     - ./docker-entrypoint.sh:/docker-entrypoint.sh
+  #   entrypoint: ["sh", "/docker-entrypoint.sh"]
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: thaco@1234
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ../minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - go_network
+
+volumes:
+  mysql_data:
+  redis_data:
+  minio_data:
+    driver: local
+
+networks:
+  go_network:
+    driver: bridge

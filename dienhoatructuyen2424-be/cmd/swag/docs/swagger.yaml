@@ -1,0 +1,1451 @@
+basePath: /v1/2025
+definitions:
+  model.AccountEditInput:
+    properties:
+      code:
+        example: TC_ADMIN
+        type: string
+      email:
+        example: admin@gmail.com
+        type: string
+      images:
+        example: /upload/images/phananhtu.jpg
+        type: string
+      name:
+        example: Admin
+        type: string
+      status:
+        type: boolean
+      username:
+        example: admin
+        type: string
+    required:
+    - code
+    - email
+    - name
+    - username
+    type: object
+  model.AccountInput:
+    properties:
+      email:
+        example: admin@gmail.com
+        type: string
+      images:
+        example: /upload/images/phananhtu.jpg
+        type: string
+      name:
+        example: Admin
+        type: string
+      role_id:
+        example: 2b796313-1134-44b3-b527-2c27d41a1624
+        type: string
+      status:
+        type: boolean
+      username:
+        example: admin
+        type: string
+    required:
+    - email
+    - name
+    - role_id
+    - username
+    type: object
+  model.ChangePasswordInput:
+    properties:
+      confirmpassword:
+        type: string
+      newpassword:
+        type: string
+      oldpassword:
+        type: string
+    type: object
+  model.CustomerStateRequest:
+    properties:
+      state:
+        type: integer
+    type: object
+  model.CustomerVerifyInput:
+    properties:
+      verify_email:
+        type: string
+    required:
+    - verify_email
+    type: object
+  model.FuncpackageInput:
+    properties:
+      role_max_number:
+        type: integer
+      role_name:
+        type: string
+    type: object
+  model.License:
+    properties:
+      dateend:
+        example: "2025-03-30 11:22:30"
+        type: string
+      datestart:
+        example: "2025-03-28 11:22:30"
+        type: string
+      role_id:
+        example: 2b796313-1134-44b3-b527-2c27d41a1624
+        type: string
+    required:
+    - dateend
+    - role_id
+    type: object
+  model.LicenseRenewal:
+    properties:
+      dateend:
+        example: "2025-03-30 11:22:30"
+        type: string
+      datestart:
+        example: "2025-03-28 11:22:30"
+        type: string
+    required:
+    - dateend
+    type: object
+  model.LoginCustomerInput:
+    properties:
+      password:
+        example: thaco@1234
+        type: string
+      username:
+        example: Admin
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  model.LoginInput:
+    properties:
+      password:
+        example: thaco@1234
+        type: string
+      username:
+        example: Admin
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  model.MenuInput:
+    properties:
+      menu_group_name:
+        example: /api/dashboard
+        type: string
+      menu_icon:
+        example: database
+        type: string
+      menu_name:
+        example: Dashboard
+        type: string
+      menu_parent_id:
+        type: string
+      menu_url:
+        example: /dashboard
+        type: string
+    type: object
+  model.MenuInputEdit:
+    properties:
+      id:
+        type: string
+      menu_group_name:
+        example: /api/dashboard
+        type: string
+      menu_icon:
+        example: database
+        type: string
+      menu_level:
+        example: 1
+        type: integer
+      menu_name:
+        example: Dashboard
+        type: string
+      menu_number_order:
+        example: 1
+        type: integer
+      menu_parent_id:
+        type: string
+      menu_url:
+        example: /dashboard
+        type: string
+    type: object
+  model.RolesMenu:
+    properties:
+      list_method:
+        example:
+        - '[''GET'''
+        - '''POST'']'
+        items:
+          type: string
+        type: array
+      menu_id:
+        example: menu-123
+        type: string
+      role_id:
+        example: role-123
+        type: string
+    required:
+    - list_method
+    - menu_id
+    - role_id
+    type: object
+  model.UpdateInfoCustomerInput:
+    properties:
+      birthday:
+        type: string
+      gender:
+        type: integer
+      image:
+        type: string
+      mobile:
+        type: string
+      name:
+        type: string
+      number_plate:
+        type: string
+      parking_id:
+        type: string
+      payment_id:
+        type: string
+      username:
+        type: string
+    type: object
+  model.UpdatePasswordRegisterInput:
+    properties:
+      password:
+        type: string
+      token:
+        type: string
+    type: object
+  model.VerifyInput:
+    properties:
+      Verify_email:
+        type: string
+      verify_code:
+        type: string
+    type: object
+  response.ErrorResponseData:
+    properties:
+      code:
+        description: status code
+        type: integer
+      detail:
+        description: dữ liệu được return
+      error:
+        description: Thông báo lỗi
+        type: string
+    type: object
+  response.ResponseData:
+    properties:
+      code:
+        description: status code
+        type: integer
+      data:
+        description: dữ liệu được return
+      message:
+        description: Thông báo lỗi
+        type: string
+    type: object
+info:
+  contact:
+    email: teamaithacoindustries@gmail.com
+    name: TEAM AI
+    url: github.com/phananhtu1998/go-backend-api
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: github.com/phananhtu1998/go-backend-api
+  title: API DOCUMENTATION PARKING BACKEND
+  version: 1.0.0
+paths:
+  /account/create_account:
+    post:
+      consumes:
+      - application/json
+      description: API này cho phép tạo tài khoản mới
+      parameters:
+      - description: Thông tin tài khoản cần tạo
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.AccountInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Tạo tài khoản mới
+      tags:
+      - Account
+  /account/delete_account/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: API xóa nhiều tài khoản dựa trên ID
+      parameters:
+      - description: Danh sách ID của tài khoản cần xóa
+        in: body
+        name: body
+        required: true
+        schema:
+          items:
+            type: string
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Xóa nhiều tài khoản
+      tags:
+      - Account
+  /account/get_account_by_id/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API này trả về tài khoản theo ID
+      parameters:
+      - description: ID tài khoản cần lấy
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Lấy tài khoản theo ID
+      tags:
+      - Account
+  /account/get_all_account:
+    get:
+      consumes:
+      - application/json
+      description: API này trả về danh sách tất cả tài khoản trong hệ thống
+      parameters:
+      - description: Từ khóa tìm kiếm
+        in: query
+        name: search
+        type: string
+      - description: 'Số trang (mặc định: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Số lượng mỗi trang (mặc định: 20)'
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Lấy danh sách tất cả tài khoản
+      tags:
+      - Account
+  /account/lock_and_unlock_account/{id}:
+    put:
+      consumes:
+      - application/json
+      description: API này khóa hoặc mở khóa thông tin tài khoản dựa trên ID
+      parameters:
+      - description: ID tài khoản cần khóa hoặc mở khóa
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Khóa hoặc mở khóa tài khoản
+      tags:
+      - Account
+  /account/reset_password_account/{id}:
+    put:
+      consumes:
+      - application/json
+      description: API reset mật khẩu tài khoản dựa trên ID
+      parameters:
+      - description: ID tài khoản cần reset Reset mật khẩu
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Reset mật khẩu tài khoản
+      tags:
+      - Account
+  /account/update_account/{id}:
+    put:
+      consumes:
+      - application/json
+      description: API này cập nhật thông tin tài khoản dựa trên ID
+      parameters:
+      - description: ID tài khoản cần cập nhật
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dữ liệu cập nhật tài khoản
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.AccountEditInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Cập nhật tài khoản
+      tags:
+      - Account
+  /auth/change_password:
+    post:
+      consumes:
+      - application/json
+      description: ChangePassword
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.ChangePasswordInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      summary: ChangePassword
+      tags:
+      - Authenticate
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      summary: Login
+      tags:
+      - Authenticate
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: Logout
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Logout
+      tags:
+      - Authenticate
+  /auth/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: RefreshToken
+      parameters:
+      - description: Refresh Token
+        in: header
+        name: RefreshToken
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: RefreshToken
+      tags:
+      - Authenticate
+  /customer/get_all_customer:
+    get:
+      consumes:
+      - application/json
+      description: API này trả về danh sách tất cả người dùng trong hệ thống
+      parameters:
+      - description: Từ khóa tìm kiếm
+        in: query
+        name: search
+        type: string
+      - description: Id của payment
+        in: query
+        name: payment
+        type: string
+      - description: 'Số trang (mặc định: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Số lượng mỗi trang (mặc định: 20)'
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Lấy danh sách tất cả người dùng
+      tags:
+      - Customer
+  /customer/get_customer_by_id/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API này trả về khách hàng theo ID
+      parameters:
+      - description: ID khách hàng cần lấy
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Lấy khách hàng theo ID
+      tags:
+      - Customer
+  /customer/lock_and_unlock_customer/{id}:
+    post:
+      consumes:
+      - application/json
+      description: Khóa và mở khóa khách hàng
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: State request
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.CustomerStateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Khóa và mở khóa khách hàng
+      tags:
+      - Customer
+  /customer/login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginCustomerInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      summary: Login
+      tags:
+      - Customer
+  /customer/logout:
+    post:
+      consumes:
+      - application/json
+      description: Logout
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      summary: Logout
+      tags:
+      - Customer
+  /customer/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: RefreshToken
+      parameters:
+      - description: Refresh Token
+        in: header
+        name: RefreshToken
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      summary: RefreshToken
+      tags:
+      - Customer
+  /customer/register:
+    post:
+      consumes:
+      - application/json
+      description: Đang ký người dùng khách hàng
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.CustomerVerifyInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      summary: Đăng ký người dùng khách hàng
+      tags:
+      - Customer
+  /customer/update_customer_info/{id}:
+    put:
+      consumes:
+      - application/json
+      description: API cập nhật customer info dựa trên ID
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Customer info cần cập nhật
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateInfoCustomerInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - TokenKey: []
+      summary: Cập nhật customer info
+      tags:
+      - Customer
+  /customer/update_password_register:
+    post:
+      consumes:
+      - application/json
+      description: Thay đổi password
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdatePasswordRegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      summary: Thay đổi password
+      tags:
+      - Customer
+  /customer/verify_otp:
+    post:
+      consumes:
+      - application/json
+      description: Xác thực OTP
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.VerifyInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      summary: Xác thực OTP
+      tags:
+      - Customer
+  /funcpackage/create_func_package:
+    post:
+      consumes:
+      - application/json
+      description: Api tạo gói chức năng trong hệ thống
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.FuncpackageInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Tạo gói chức năng
+      tags:
+      - FuncPackages
+  /funcpackage/delete_funcpackage/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: API này xóa gói chức năng
+      parameters:
+      - description: ID của gói chức năng cần xóa
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Xóa gói chức năng
+      tags:
+      - FuncPackages
+  /funcpackage/get_all_func_package:
+    get:
+      consumes:
+      - application/json
+      description: Api lấy gói chức năng trong hệ thống
+      parameters:
+      - description: Từ khóa tìm kiếm
+        in: query
+        name: search
+        type: string
+      - description: 'Số trang (mặc định: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Số lượng mỗi trang (mặc định: 20)'
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Lấy gói chức năng
+      tags:
+      - FuncPackages
+  /funcpackage/get_all_func_package_select:
+    get:
+      consumes:
+      - application/json
+      description: Api lấy gói chức năng cho select trong hệ thống
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Lấy gói chức năng cho select
+      tags:
+      - FuncPackages
+  /funcpackagesmenu/create_funcpackage_menu_multiple:
+    post:
+      consumes:
+      - application/json
+      description: Api tạo nhiều menu theo chức năng cho hệ thống
+      parameters:
+      - description: Funcpackage menu mapping details
+        in: body
+        name: payload
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/model.RolesMenu'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Tạo nhiều menu theo chức năng
+      tags:
+      - FuncPackageMenu
+  /funcpackagesmenu/delete_funcpackage_menu/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Api gói chức năng menu
+      parameters:
+      - description: ID của Funcpackage menu
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Xóa chức năng menu
+      tags:
+      - FuncPackageMenu
+  /funcpackagesmenu/get_funcpackage_menu_by_funcpackage_id/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API này trả về chức năng menu theo ID
+      parameters:
+      - description: ID function package
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Từ khóa tìm kiếm
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Lấy chức năng menu theo ID
+      tags:
+      - FuncPackageMenu
+  /funcpackagesmenu/update_funcpackage_menu/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Api cập nhật phân quyền menu cho chức năng
+      parameters:
+      - description: ID của role menu
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Thông tin cần cập nhật
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.RolesMenu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Cập nhật chức năng menu
+      tags:
+      - FuncPackageMenu
+  /license/create_license:
+    post:
+      consumes:
+      - application/json
+      description: API tạo mới license cho gói chức năng
+      parameters:
+      - description: Thông tin License cần tạo
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.License'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Tạo mới license cho gói chức năng
+      tags:
+      - License
+  /license/license_renewal/{id}:
+    put:
+      consumes:
+      - application/json
+      description: API gia hạn license
+      parameters:
+      - description: ID license cần gia hạn
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dữ liệu gia hạn license
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.LicenseRenewal'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Gia hạn license
+      tags:
+      - License
+  /menu/create_menu:
+    post:
+      consumes:
+      - application/json
+      description: API tạo menu trong hệ thống
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.MenuInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Tạo menu
+      tags:
+      - Menu
+  /menu/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: API này xóa một menu dựa trên ID
+      parameters:
+      - description: Menu ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Xóa menu
+      tags:
+      - Menu
+  /menu/get_all_menu_by_function_package:
+    get:
+      consumes:
+      - application/json
+      description: API này trả về danh sách tất cả menu theo gói chức năng trong hệ
+        thống
+      parameters:
+      - description: Từ khóa tìm kiếm
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Lấy danh sách menu theo gói chức năng
+      tags:
+      - Menu
+  /menu/get_menu_by_id/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API này trả về menu theo ID
+      parameters:
+      - description: ID menu cần lấy
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Lấy menu theo ID
+      tags:
+      - Menu
+  /menu/update_multiple_menu:
+    put:
+      consumes:
+      - application/json
+      description: API này cập nhật danh sách menu dựa trên danh sách ID
+      parameters:
+      - description: Danh sách menu cần cập nhật
+        in: body
+        name: body
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/model.MenuInputEdit'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Cập nhật nhiều menu
+      tags:
+      - Menu
+  /upload/upload_file:
+    post:
+      consumes:
+      - multipart/form-data
+      description: API upload file cho hệ thống
+      parameters:
+      - description: File cần upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      summary: Upload file
+      tags:
+      - Upload
+  /upload/upload_file_customer:
+    post:
+      consumes:
+      - multipart/form-data
+      description: API upload file cho hệ thống
+      parameters:
+      - description: File cần upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponseData'
+      security:
+      - TokenKey: []
+      summary: Upload file
+      tags:
+      - Upload
+security:
+- "":
+  - BearerAuth
+  - ApiKeyAuth
+  - TokenKey
+securityDefinitions:
+  ApiKeyAuth:
+    description: Nhập API Key vào header để xác thực API
+    in: header
+    name: X-API-Key
+    type: apiKey
+  BearerAuth:
+    description: 'Nhập Bearer Token vào header. Ví dụ: "Bearer {token}"'
+    in: header
+    name: Authorization
+    type: apiKey
+  TokenKey:
+    description: Nhập Token Key vào header để xác thực API
+    in: header
+    name: TokenKey
+    type: apiKey
+swagger: "2.0"

@@ -1,0 +1,10 @@
+config:
+  target: "http://localhost:8002/v1/2025/ping"
+  phases:
+    - duration: 1  # Chạy trong 1 giây
+      arrivalRate: 1200  # 1000 requests mỗi giây (RPS)
+
+scenarios:
+  - flow:
+      - get:
+          url: "/"
