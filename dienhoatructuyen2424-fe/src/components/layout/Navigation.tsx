@@ -16,20 +16,20 @@ export default function Navigation() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <div className="absolute left-0 mt-2 w-96 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="p-4">
-                  <div className="grid grid-cols-2 gap-2">
-                    {categories.map((category) => (
-                      <CategoryCard
-                        key={category.id}
-                        id={category.id}
-                        name={category.name}
-                        image={category.image}
-                        description={category.description}
-                        className="h-24"
-                      />
-                    ))}
-                  </div>
+              <div className="absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-gray-200">
+                <div className="py-2">
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kệ Hoa Khai Trương</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Giỏ Hoa Khai Trương, Sinh Nhật</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kệ Hoa Chia Buồn</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Giỏ Hoa Chia Buồn</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Bó Hoa Sinh Nhật, Tình Yêu</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lan Hồ Điệp</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Giỏ Trái Cây</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cây Xanh Văn Phòng</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Bánh Kem</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Hoa Mừng Tốt Nghiệp</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Hoa Cưới</a>
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Giỏ Quà Tết</a>
                 </div>
               </div>
             </div>
