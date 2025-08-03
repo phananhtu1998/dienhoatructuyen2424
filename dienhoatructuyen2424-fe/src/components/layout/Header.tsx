@@ -7,12 +7,72 @@ export default function Header() {
       <div className="bg-green-600 h-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-full">
-            <div className="text-white text-xs">
+            <div className="text-white text-base">
               Chào mừng bạn đến với Sức Sống Flowers
             </div>
-            <div className="flex items-center space-x-2 text-white text-xs">
-              <span className="text-red-400 text-sm">★</span>
-              <span className="cursor-pointer">VI ^</span>
+            <div className="relative group">
+              <div className="flex items-center space-x-2 text-white text-base cursor-pointer">
+                <svg className="w-4 h-3" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <clipPath id="a">
+                      <path fill-opacity=".7" d="M-85.3 0h682.6v512h-682.6z"/>
+                    </clipPath>
+                  </defs>
+                  <g clip-path="url(#a)" transform="translate(80) scale(.94)">
+                    <g fill-rule="evenodd" stroke-width="1pt">
+                      <path fill="#da251d" d="M-256 0H768v512H-256z"/>
+                      <path fill="#ff0" d="M256 128l47.2 145.4H448l-121.6 88.3 46.4 142.7L256 361.4 127.2 504.4l46.4-142.7L52 273.4h144.8L256 128z"/>
+                    </g>
+                  </g>
+                </svg>
+                <span>VI</span>
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+              
+              {/* Language Dropdown */}
+              <div className="absolute right-0 mt-1 w-32 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-gray-200">
+                <div className="py-1">
+                  <div className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                    <svg className="w-4 h-3 mr-2" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <clipPath id="b">
+                          <path fill-opacity=".7" d="M-85.3 0h682.6v512h-682.6z"/>
+                        </clipPath>
+                      </defs>
+                      <g clip-path="url(#b)" transform="translate(80) scale(.94)">
+                        <g fill-rule="evenodd" stroke-width="1pt">
+                          <path fill="#da251d" d="M-256 0H768v512H-256z"/>
+                          <path fill="#ff0" d="M256 128l47.2 145.4H448l-121.6 88.3 46.4 142.7L256 361.4 127.2 504.4l46.4-142.7L52 273.4h144.8L256 128z"/>
+                        </g>
+                      </g>
+                    </svg>
+                    <span>Tiếng Việt</span>
+                  </div>
+                  <div className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                    <svg className="w-4 h-3 mr-2" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <clipPath id="c">
+                          <path fill-opacity=".7" d="M-85.3 0h682.6v512h-682.6z"/>
+                        </clipPath>
+                      </defs>
+                      <g clip-path="url(#c)" transform="translate(80) scale(.94)">
+                        <g fill-rule="evenodd" stroke-width="1pt">
+                          <path fill="#012169" d="M-256 0H768v512H-256z"/>
+                          <path fill="#FFF" d="M-256 0H768v307.2H-256z"/>
+                          <path fill="#C8102E" d="M-256 0H768v204.8H-256z"/>
+                          <path fill="#FFF" d="m-256 0 512 256-512 256V0z"/>
+                          <path fill="#C8102E" d="m-256 0 512 256-512 256V0z" transform="scale(-1)"/>
+                          <path fill="#FFF" d="M170.7 0v512h170.6V0H170.7z"/>
+                          <path fill="#C8102E" d="M170.7 0v512h102.4V0H170.7z" transform="scale(-1)"/>
+                        </g>
+                      </g>
+                    </svg>
+                    <span>English</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
