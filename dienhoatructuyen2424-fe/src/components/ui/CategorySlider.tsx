@@ -19,16 +19,30 @@ const VISIBLE_CAT = 8;
 export default function CategorySlider() {
   const [catStart, setCatStart] = useState(0);
 
-  const catPrev = () => setCatStart((s) => Math.max(0, s - 1));
-  const catNext = () => setCatStart((s) => Math.min(categories.length - VISIBLE_CAT, s + 1));
+  const catPrev = () => {
+    if (catStart === 0) {
+      // Nếu ở đầu, quay về cuối
+      setCatStart(categories.length - VISIBLE_CAT);
+    } else {
+      setCatStart(catStart - 1);
+    }
+  };
+
+  const catNext = () => {
+    if (catStart >= categories.length - VISIBLE_CAT) {
+      // Nếu ở cuối, quay về đầu
+      setCatStart(0);
+    } else {
+      setCatStart(catStart + 1);
+    }
+  };
 
   return (
     <div className="w-full mt-6">
       <div className="flex items-center w-full">
         <button
           onClick={catPrev}
-          disabled={catStart === 0}
-          className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 disabled:opacity-30 hover:bg-gray-200 hover:text-gray-700 transition-all duration-200 cursor-pointer shadow-sm flex-shrink-0"
+          className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-700 transition-all duration-200 cursor-pointer shadow-sm flex-shrink-0"
           aria-label="Trước"
         >
           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -55,8 +69,7 @@ export default function CategorySlider() {
 
         <button
           onClick={catNext}
-          disabled={catStart >= categories.length - VISIBLE_CAT}
-          className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 disabled:opacity-30 hover:bg-gray-200 hover:text-gray-700 transition-all duration-200 cursor-pointer shadow-sm flex-shrink-0"
+          className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-700 transition-all duration-200 cursor-pointer shadow-sm flex-shrink-0"
           aria-label="Sau"
         >
           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
