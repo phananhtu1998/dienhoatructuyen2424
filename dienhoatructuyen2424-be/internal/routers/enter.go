@@ -1,7 +1,6 @@
 package routers
 
 import (
-	"go-backend-api/internal/routers/customer"
 	"go-backend-api/internal/routers/funcpackage"
 	"go-backend-api/internal/routers/license"
 	"go-backend-api/internal/routers/login"
@@ -18,10 +17,9 @@ type RouterGroup struct {
 	// Role        role.RoleRouterGroup
 	RolesMenu rolesmenu.RolesMenuRouterGroup
 	//RoleAccount roleaccount.RoleAccountsRouterGroup
-	License           license.LicenseRouterGroup
-	Upload            upload.UploadRouterGroup
-	Funcpackage       funcpackage.FuncpackageRouterGroup
-	Customer          customer.CustomerRouterGroup
+	License     license.LicenseRouterGroup
+	Upload      upload.UploadRouterGroup
+	Funcpackage funcpackage.FuncpackageRouterGroup
 }
 
 var RouterGroupApp = new(RouterGroup)
