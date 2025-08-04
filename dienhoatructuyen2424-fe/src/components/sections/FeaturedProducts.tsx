@@ -15,42 +15,6 @@ export default function FeaturedProducts() {
   // Tính toán số trang tối đa
   const maxPages = Math.ceil(featuredProducts.length / MAX_DISPLAY_ITEMS);
 
-  const productPrev = () => {
-    setSlideDirection(-1);
-    
-    if (productStart === 0) {
-      // Nếu ở trang đầu, quay về trang cuối
-      setProductStart((maxPages - 1) * MAX_DISPLAY_ITEMS);
-    } else {
-      setProductStart(productStart - MAX_DISPLAY_ITEMS);
-    }
-    
-    setTimeout(() => {
-      setSlideDirection(0);
-    }, 400);
-    
-    // Reset auto slide timer
-    resetAutoSlide();
-  };
-
-  const productNext = () => {
-    setSlideDirection(1);
-    
-    if (productStart >= (maxPages - 1) * MAX_DISPLAY_ITEMS) {
-      // Nếu ở trang cuối, quay về trang đầu
-      setProductStart(0);
-    } else {
-      setProductStart(productStart + MAX_DISPLAY_ITEMS);
-    }
-    
-    setTimeout(() => {
-      setSlideDirection(0);
-    }, 400);
-    
-    // Reset auto slide timer
-    resetAutoSlide();
-  };
-
   const autoSlide = () => {
     setSlideDirection(1);
     
@@ -88,13 +52,16 @@ export default function FeaturedProducts() {
     };
   }, [productStart]);
 
-  // Tạo danh sách sản phẩm theo phân trang
+  // Tạo danh sách sản phẩm theo phân trang với layout cố định
   const getVisibleProducts = () => {
     const result = [];
     for (let i = 0; i < MAX_DISPLAY_ITEMS; i++) {
       const index = productStart + i;
       if (index < featuredProducts.length) {
         result.push(featuredProducts[index]);
+      } else {
+        // Nếu hết sản phẩm, thêm null để giữ layout cố định
+        result.push(null);
       }
     }
     return result;
@@ -140,44 +107,29 @@ export default function FeaturedProducts() {
         {hasMoreProducts ? (
           <div className="relative">
             <div className="flex items-center w-full">
-              <button
-                onClick={productPrev}
-                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition-all duration-300 cursor-pointer shadow-sm flex-shrink-0 hover:shadow-md active:scale-95 z-10"
-                aria-label="Trước"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </button>
-
               <div className="flex flex-1 overflow-hidden mx-4">
                 <div 
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full"
                   style={getTransformStyle()}
                 >
                   {getVisibleProducts().map((product, idx) => (
-                    <div key={`${productStart}-${idx}`}>
-                      <ProductCard
-                        id={product.id}
-                        name={product.name}
-                        price={product.price}
-                        image={product.image}
-                        description={product.description}
-                      />
+                    <div key={`${productStart}-${idx}`} className="min-h-[300px]">
+                      {product ? (
+                        <ProductCard
+                          id={product.id}
+                          name={product.name}
+                          price={product.price}
+                          image={product.image}
+                          description={product.description}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
-
-              <button
-                onClick={productNext}
-                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition-all duration-300 cursor-pointer shadow-sm flex-shrink-0 hover:shadow-md active:scale-95 z-10"
-                aria-label="Sau"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                </svg>
-              </button>
             </div>
           </div>
         ) : (
