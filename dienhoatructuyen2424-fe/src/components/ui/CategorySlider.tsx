@@ -18,13 +18,9 @@ const VISIBLE_CAT = 8;
 
 export default function CategorySlider() {
   const [catStart, setCatStart] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [slideDirection, setSlideDirection] = useState(0);
 
   const catPrev = () => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
     setSlideDirection(-1);
     
     if (catStart === 0) {
@@ -35,14 +31,10 @@ export default function CategorySlider() {
     
     setTimeout(() => {
       setSlideDirection(0);
-      setIsAnimating(false);
     }, 400);
   };
 
   const catNext = () => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
     setSlideDirection(1);
     
     if (catStart >= categories.length - 1) {
@@ -53,7 +45,6 @@ export default function CategorySlider() {
     
     setTimeout(() => {
       setSlideDirection(0);
-      setIsAnimating(false);
     }, 400);
   };
 
@@ -92,8 +83,7 @@ export default function CategorySlider() {
       <div className="flex items-center w-full">
         <button
           onClick={catPrev}
-          disabled={isAnimating}
-          className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition-all duration-300 cursor-pointer shadow-sm flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-md active:scale-95"
+          className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition-all duration-300 cursor-pointer shadow-sm flex-shrink-0 hover:shadow-md active:scale-95"
           aria-label="Trước"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -128,8 +118,7 @@ export default function CategorySlider() {
 
         <button
           onClick={catNext}
-          disabled={isAnimating}
-          className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition-all duration-300 cursor-pointer shadow-sm flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-md active:scale-95"
+          className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition-all duration-300 cursor-pointer shadow-sm flex-shrink-0 hover:shadow-md active:scale-95"
           aria-label="Sau"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
