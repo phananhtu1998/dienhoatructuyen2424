@@ -12,7 +12,7 @@ export const featuredProducts: Product[] = [
     id: 'SQ0103',
     name: 'SQ0103',
     price: '1,820,000 ₫',
-    image: '/images/products/flower-1.jpg',
+    image: '/images/best-seller/BK20-400-300x300.png',
     category: 'flowers',
     description: 'Bó hoa hồng đỏ sang trọng'
   },
@@ -20,7 +20,7 @@ export const featuredProducts: Product[] = [
     id: 'SQ742',
     name: 'SQ742',
     price: '2,300,000 ₫',
-    image: '/images/products/flower-2.jpg',
+    image: '/images/best-seller/BK32-400-300x300.png',
     category: 'flowers',
     description: 'Bó hoa hướng dương tươi thắm'
   },
@@ -28,7 +28,7 @@ export const featuredProducts: Product[] = [
     id: 'SQ0098',
     name: 'SQ0098',
     price: '3,700,000 ₫',
-    image: '/images/products/flower-3.jpg',
+    image: '/images/best-seller/BK36-400-300x300.png',
     category: 'flowers',
     description: 'Bó hoa cúc đa sắc'
   },
@@ -36,7 +36,55 @@ export const featuredProducts: Product[] = [
     id: 'SQ825',
     name: 'SQ825',
     price: '870,000 ₫',
-    image: '/images/products/flower-4.jpg',
+    image: '/images/best-seller/CB005.png',
+    category: 'flowers',
+    description: 'Bó hoa hồng phấn nhẹ nhàng'
+  },
+  {
+    id: 'SQ421',
+    name: 'SQ421',
+    price: '670,000 ₫',
+    image: '/images/best-seller/CB006.png',
+    category: 'flowers',
+    description: 'Bó hoa hồng phấn nhẹ nhàng'
+  },
+  {
+    id: 'SQ0103',
+    name: 'SQ0103',
+    price: '1,820,000 ₫',
+    image: '/images/best-seller/BK20-400-300x300.png',
+    category: 'flowers',
+    description: 'Bó hoa hồng đỏ sang trọng'
+  },
+  {
+    id: 'SQ742',
+    name: 'SQ742',
+    price: '2,300,000 ₫',
+    image: '/images/best-seller/BK32-400-300x300.png',
+    category: 'flowers',
+    description: 'Bó hoa hướng dương tươi thắm'
+  },
+  {
+    id: 'SQ0098',
+    name: 'SQ0098',
+    price: '3,700,000 ₫',
+    image: '/images/best-seller/BK36-400-300x300.png',
+    category: 'flowers',
+    description: 'Bó hoa cúc đa sắc'
+  },
+  {
+    id: 'SQ825',
+    name: 'SQ825',
+    price: '870,000 ₫',
+    image: '/images/best-seller/CB005.png',
+    category: 'flowers',
+    description: 'Bó hoa hồng phấn nhẹ nhàng'
+  },
+  {
+    id: 'SQ421',
+    name: 'SQ421',
+    price: '670,000 ₫',
+    image: '/images/best-seller/CB006.png',
     category: 'flowers',
     description: 'Bó hoa hồng phấn nhẹ nhàng'
   }
