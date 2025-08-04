@@ -18,23 +18,30 @@ const VISIBLE_CAT = 8;
 
 export default function CategorySlider() {
   const [catStart, setCatStart] = useState(0);
+  const [slideDirection, setSlideDirection] = useState(0); // -1: left, 0: none, 1: right
 
   const catPrev = () => {
+    setSlideDirection(-1);
     if (catStart === 0) {
       // Nếu ở đầu, quay về cuối
       setCatStart(categories.length - 1);
     } else {
       setCatStart(catStart - 1);
     }
+    // Reset direction after animation
+    setTimeout(() => setSlideDirection(0), 300);
   };
 
   const catNext = () => {
+    setSlideDirection(1);
     if (catStart >= categories.length - 1) {
       // Nếu ở cuối, quay về đầu
       setCatStart(0);
     } else {
       setCatStart(catStart + 1);
     }
+    // Reset direction after animation
+    setTimeout(() => setSlideDirection(0), 300);
   };
 
   // Tạo danh sách categories theo vòng tròn
@@ -45,6 +52,19 @@ export default function CategorySlider() {
       result.push(categories[index]);
     }
     return result;
+  };
+
+  // Tính toán transform dựa trên hướng trượt
+  const getTransformStyle = () => {
+    if (slideDirection === 0) return { transform: 'translateX(0)' };
+    
+    const itemWidth = 100 / VISIBLE_CAT; // Phần trăm width của mỗi item
+    const translateX = slideDirection === 1 ? `-${itemWidth}%` : `${itemWidth}%`;
+    
+    return {
+      transform: `translateX(${translateX})`,
+      transition: 'transform 0.3s ease-in-out'
+    };
   };
 
   return (
@@ -62,10 +82,8 @@ export default function CategorySlider() {
 
         <div className="flex flex-1 overflow-hidden">
           <div 
-            className="flex flex-1 transition-transform duration-300 ease-in-out"
-            style={{
-              transform: `translateX(0)`,
-            }}
+            className="flex flex-1"
+            style={getTransformStyle()}
           >
             {getVisibleCategories().map((cat, idx) => (
               <div 
