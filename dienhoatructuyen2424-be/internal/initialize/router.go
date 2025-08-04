@@ -44,7 +44,6 @@ func InitRouter() *gin.Engine {
 	licenseRouter := routers.RouterGroupApp.License
 	uploadRouter := routers.RouterGroupApp.Upload
 	funcpackageRouter := routers.RouterGroupApp.Funcpackage
-	customerRouter := routers.RouterGroupApp.Customer
 	MainGroup := r.Group(consts.HOST_PREFIX)
 	{
 		MainGroup.GET("/ping", func(c *gin.Context) {
@@ -64,7 +63,6 @@ func InitRouter() *gin.Engine {
 		licenseRouter.InitLicenseRouter(MainGroup)
 		uploadRouter.InitUploadRouter(MainGroup)
 		funcpackageRouter.InitFuncpackageRouter(MainGroup)
-		customerRouter.InitCustomerRouter(MainGroup)
 	}
 	return r
 }

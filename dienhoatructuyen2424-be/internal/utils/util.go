@@ -1,11 +1,9 @@
 package utils
 
 import (
-	"context"
 	"database/sql"
 	"fmt"
 	consts "go-backend-api/internal/const"
-	"go-backend-api/internal/service"
 	"strconv"
 	"strings"
 
@@ -43,17 +41,4 @@ func CompareNullString(a, b sql.NullString) bool {
 		return false
 	}
 	return a.String == b.String
-}
-
-func CheckTokenValid(token string) bool {
-	status, err := service.CustomerItem().CheckTokenCustomer(context.Background(), token)
-	return err == nil && status
-}
-
-func GetCustomerStateByToken(token string) int8 {
-	_, state, err := service.CustomerItem().GetStateByVerifyHash(context.Background(), token)
-	if err != nil {
-		return consts.StateUnavailable
-	}
-	return state
 }

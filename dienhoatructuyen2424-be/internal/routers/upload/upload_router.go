@@ -17,9 +17,5 @@ func (ar *UploadRouter) InitUploadRouter(Router *gin.RouterGroup) {
 	{
 		uploadRouterPrivate.POST("/upload_file", upload.UploadFileHandler)
 	}
-	uploadRouterCustomer := Router.Group("/upload")
-	uploadRouterPrivate.Use(middlewares.CustomerMiddleware())
-	{
-		uploadRouterCustomer.POST("/upload_file_customer", upload.UploadFileCustomer)
-	}
+	
 }
