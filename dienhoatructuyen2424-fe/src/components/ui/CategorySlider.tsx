@@ -22,19 +22,29 @@ export default function CategorySlider() {
   const catPrev = () => {
     if (catStart === 0) {
       // Nếu ở đầu, quay về cuối
-      setCatStart(categories.length - VISIBLE_CAT);
+      setCatStart(categories.length - 1);
     } else {
       setCatStart(catStart - 1);
     }
   };
 
   const catNext = () => {
-    if (catStart >= categories.length - VISIBLE_CAT) {
+    if (catStart >= categories.length - 1) {
       // Nếu ở cuối, quay về đầu
       setCatStart(0);
     } else {
       setCatStart(catStart + 1);
     }
+  };
+
+  // Tạo danh sách categories theo vòng tròn
+  const getVisibleCategories = () => {
+    const result = [];
+    for (let i = 0; i < VISIBLE_CAT; i++) {
+      const index = (catStart + i) % categories.length;
+      result.push(categories[index]);
+    }
+    return result;
   };
 
   return (
@@ -50,21 +60,31 @@ export default function CategorySlider() {
           </svg>
         </button>
 
-        <div className="flex flex-1">
-          {categories.slice(catStart, catStart + VISIBLE_CAT).map((cat, idx) => (
-            <div key={idx} className="flex flex-col items-center flex-1">
-              <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200 flex items-center justify-center bg-white shadow-sm">
-                <Image
-                  src={cat.image}
-                  alt={cat.name}
-                  width={64}
-                  height={64}
-                  className="object-contain w-full h-full"
-                />
+        <div className="flex flex-1 overflow-hidden">
+          <div 
+            className="flex flex-1 transition-transform duration-300 ease-in-out"
+            style={{
+              transform: `translateX(0)`,
+            }}
+          >
+            {getVisibleCategories().map((cat, idx) => (
+              <div 
+                key={`${catStart}-${idx}`} 
+                className="flex flex-col items-center flex-1 min-w-0"
+              >
+                <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200 flex items-center justify-center bg-white shadow-sm">
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    width={64}
+                    height={64}
+                    className="object-contain w-full h-full"
+                  />
+                </div>
+                <span className="mt-2 text-center text-xs leading-tight whitespace-pre-line font-medium px-1">{cat.name}</span>
               </div>
-              <span className="mt-2 text-center text-xs leading-tight whitespace-pre-line font-medium">{cat.name}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <button
