@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 const categories = [
@@ -15,10 +15,12 @@ const categories = [
 ];
 
 const VISIBLE_CAT = 8;
+const AUTO_SLIDE_INTERVAL = 5000; // 5 seconds
 
 export default function CategorySlider() {
   const [catStart, setCatStart] = useState(0);
   const [slideDirection, setSlideDirection] = useState(0);
+  const autoSlideRef = useRef<NodeJS.Timeout | null>(null);
 
   const catPrev = () => {
     setSlideDirection(-1);
@@ -32,6 +34,9 @@ export default function CategorySlider() {
     setTimeout(() => {
       setSlideDirection(0);
     }, 400);
+    
+    // Reset auto slide timer
+    resetAutoSlide();
   };
 
   const catNext = () => {
@@ -46,7 +51,46 @@ export default function CategorySlider() {
     setTimeout(() => {
       setSlideDirection(0);
     }, 400);
+    
+    // Reset auto slide timer
+    resetAutoSlide();
   };
+
+  const autoSlide = () => {
+    setSlideDirection(1);
+    
+    if (catStart >= categories.length - 1) {
+      setCatStart(0);
+    } else {
+      setCatStart(catStart + 1);
+    }
+    
+    setTimeout(() => {
+      setSlideDirection(0);
+    }, 400);
+  };
+
+  const resetAutoSlide = () => {
+    // Clear existing timer
+    if (autoSlideRef.current) {
+      clearInterval(autoSlideRef.current);
+    }
+    
+    // Start new timer
+    autoSlideRef.current = setInterval(autoSlide, AUTO_SLIDE_INTERVAL);
+  };
+
+  // Start auto slide on component mount and when catStart changes
+  useEffect(() => {
+    resetAutoSlide();
+    
+    // Cleanup on unmount
+    return () => {
+      if (autoSlideRef.current) {
+        clearInterval(autoSlideRef.current);
+      }
+    };
+  }, [catStart]); // Add catStart as dependency
 
   // Tạo danh sách categories theo vòng tròn
   const getVisibleCategories = () => {
