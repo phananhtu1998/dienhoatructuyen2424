@@ -73,18 +73,10 @@ export const featuredProducts: Product[] = [
     description: 'Bó hoa cúc đa sắc'
   },
   {
-    id: 'SQ825',
-    name: 'SQ825',
-    price: '870,000 ₫',
-    image: '/images/best-seller/CB005.png',
-    category: 'flowers',
-    description: 'Bó hoa hồng phấn nhẹ nhàng'
-  },
-  {
     id: 'SQ421',
     name: 'SQ421',
     price: '670,000 ₫',
-    image: '/images/best-seller/CB006.png',
+    image: '/images/best-seller/SK06.png',
     category: 'flowers',
     description: 'Bó hoa hồng phấn nhẹ nhàng'
   }
