@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import CategorySlider from "./CategorySlider";
 
 const banners = [
   '/images/banner/300-x-81-5.png.webp',
@@ -95,45 +96,48 @@ export default function BannerSlider() {
   };
 
   return (
-    <div 
-      ref={sliderRef}
-      className="relative w-full h-96 overflow-hidden rounded-lg cursor-grab active:cursor-grabbing select-none"
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* Current Banner Image */}
+    <>
       <div 
-        className="relative w-full h-full transition-transform duration-300 ease-out"
-        style={{ 
-          transform: `translateX(${translateX}px)`
-        }}
+        ref={sliderRef}
+        className="relative w-full h-96 overflow-hidden rounded-lg cursor-grab active:cursor-grabbing select-none"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
       >
-        <Image
-          src={banners[currentSlide]}
-          alt={`Banner ${currentSlide + 1}`}
-          fill
-          className="object-cover"
-          priority
-          draggable={false}
-        />
-      </div>
-
-      {/* Dots Indicator */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {banners.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all cursor-pointer ${
-              index === currentSlide
-                ? 'bg-white'
-                : 'bg-white bg-opacity-50 hover:bg-opacity-75'
-            }`}
+        {/* Current Banner Image */}
+        <div 
+          className="relative w-full h-full transition-transform duration-300 ease-out"
+          style={{ 
+            transform: `translateX(${translateX}px)`
+          }}
+        >
+          <Image
+            src={banners[currentSlide]}
+            alt={`Banner ${currentSlide + 1}`}
+            fill
+            className="object-contain"
+            priority
+            draggable={false}
           />
-        ))}
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {banners.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all cursor-pointer ${
+                index === currentSlide
+                  ? 'bg-white'
+                  : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+              }`}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+      <CategorySlider />
+    </>
   );
 } 
